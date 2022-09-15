@@ -7,41 +7,130 @@
     <title>Document</title>
   </head>
   <body>
-    <p>
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iusto amet
-      assumenda molestiae ipsam sit praesentium, eos eum quis velit sed. Quod
-      ipsum corporis, veritatis aut esse quam est nesciunt labore.
-    </p>
+    <form>
+      <select name="position">
+        <option value="">select Position</option>
+        <option value="cashier">cashier</option>
+        <option value="manager">manager</option>
+      </select>
+      <select name="type">
+        <option value="">select Type</option>
+        <option value="hourly">hourly</option>
+        <option value="monthly">monthly</option>
+        <option value="daily">daily</option>
+      </select>
+      <select name="availability">
+        <option value="">select Availability</option>
+        <option value="true">true</option>
+        <option value="false">false</option>
+      </select>
+      <input type="submit" />
+    </form>
 
     <script>
-      function Employee(name, age) {
-        this.name = name;
-        this.age = age;
-      }
+      window.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");
 
-      //   task 1
-      const emp1 = new Employee("aa", 10);
+        form.addEventListener("submit", function (event) {
+          event.preventDefault();
+          document.querySelector("pre")?.remove();
+          const formData = new FormData(form);
+          const input = Object.fromEntries(formData.entries());
+          console.log(input);
 
-      //   task 2
-      console.log(Object.keys(emp1));
+          if (!input.position || !input.type || !input.availability) {
+            alert("All fields are required");
+            return;
+          }
 
-      //  task 3
-      console.log(Object.values(emp1));
+          const mixin = {
+            showDetails: function () {
+              return `{ Position: ${this.position}, Type: ${this.type}, Availability: ${this.availability} }`;
+            },
+          };
 
-      //   task 4
-      console.log(Object.entries(emp1));
+          const employee = Object.assign(mixin, input);
+          console.log(employee);
+          console.log(employee.showDetails());
 
-      //   task 5
-      const emp1_modified = Object.assign(emp1, {
-        foodItems: ["item 1", "item 2"],
+          document.body.insertAdjacentHTML(
+            "beforeend",
+            `<pre>${employee.showDetails()}</pre>`
+          );
+
+          // task 2, print the keys
+          console.log(Object.keys(employee));
+
+          document.body.insertAdjacentHTML(
+            "beforeend",
+            `<pre>Keys: [${Object.keys(employee)}]</pre>`
+          );
+
+          // task 3, print the keys
+          console.log(Object.keys(employee));
+
+          document.body.insertAdjacentHTML(
+            "beforeend",
+            `<pre>Values: [${Object.values(employee)}]</pre>`
+          );
+
+          // task 4, print the keys
+          console.log(Object.entries(employee));
+
+          document.body.insertAdjacentHTML(
+            "beforeend",
+            `<pre>Entries: [${Object.entries(employee)}]</pre>`
+          );
+
+          // task 5,
+          const employee_modified = Object.assign(employee, {
+            foodItems: ["item 1", "item 2"],
+          });
+          console.log(employee_modified);
+          document.body.insertAdjacentHTML(
+            "beforeend",
+            `<pre>Object with Food Items: {${Object.entries(
+              employee_modified
+            )}}</pre>`
+          );
+
+          // //   task 6
+          Object.freeze(employee_modified);
+          // this line have no affect on the name attribute
+          employee_modified.position = "a new postion";
+          console.log(employee_modified);
+          document.body.insertAdjacentHTML(
+            "beforeend",
+            `<pre>Freeze: {${Object.entries(employee_modified)}}</pre>`
+          );
+
+          //
+        });
       });
-      console.log(emp1_modified);
 
-      //   task 6
-      Object.freeze(emp1_modified);
-      // this line have no affect on the name attribute
-      emp1_modified.name = "new name";
-      console.log(emp1_modified);
+      // //   task 1
+      // const emp1 = new Employee("aa", 10);
+
+      // //   task 2
+      // console.log(Object.keys(emp1));
+
+      // //  task 3
+      // console.log(Object.values(emp1));
+
+      // //   task 4
+      // console.log(Object.entries(emp1));
+
+      // //   task 5
+      // const employee_modified = Object.assign(emp1, {
+      //   foodItems: ["item 1", "item 2"],
+      // });
+      // console.log(emp1_modified);
+
+      // //   task 6
+      // Object.freeze(emp1_modified);
+      // // this line have no affect on the name attribute
+      // emp1_modified.name = "new name";
+      // console.log(emp1_modified);
     </script>
   </body>
 </html>
