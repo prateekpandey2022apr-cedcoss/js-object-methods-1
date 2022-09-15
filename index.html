@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p>
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iusto amet
+      assumenda molestiae ipsam sit praesentium, eos eum quis velit sed. Quod
+      ipsum corporis, veritatis aut esse quam est nesciunt labore.
+    </p>
+
+    <script>
+      function Employee(name, age) {
+        this.name = name;
+        this.age = age;
+      }
+
+      //   task 1
+      const emp1 = new Employee("aa", 10);
+
+      //   task 2
+      console.log(Object.keys(emp1));
+
+      //  task 3
+      console.log(Object.values(emp1));
+
+      //   task 4
+      console.log(Object.entries(emp1));
+
+      //   task 5
+      const emp1_modified = Object.assign(emp1, {
+        foodItems: ["item 1", "item 2"],
+      });
+      console.log(emp1_modified);
+
+      //   task 6
+      Object.freeze(emp1_modified);
+      // this line have no affect on the name attribute
+      emp1_modified.name = "new name";
+      console.log(emp1_modified);
+    </script>
+  </body>
+</html>
